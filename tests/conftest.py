@@ -4,7 +4,7 @@ from typing import Any, Dict, Literal
 import pytest
 
 from starlette.testclient import TestClient
-from tests.test_types.types import TestClientFactory
+from tests.types import TestClientFactory
 
 
 @pytest.fixture
