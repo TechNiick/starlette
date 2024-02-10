@@ -3,7 +3,7 @@ import os
 import time
 from http.cookies import SimpleCookie
 from pathlib import Path
-from typing import AsyncIterator, Callable, Iterator, Union
+from typing import AsyncIterator, Iterator, Union
 
 import anyio
 import pytest
@@ -21,8 +21,7 @@ from starlette.responses import (
 )
 from starlette.testclient import TestClient
 from starlette.types import Message, Receive, Scope, Send
-
-TestClientFactory = Callable[..., TestClient]
+from tests.test_types.types import TestClientFactory
 
 
 def test_text_response(test_client_factory: TestClientFactory) -> None:

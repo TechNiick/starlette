@@ -1,11 +1,10 @@
 import functools
-from typing import Any, Callable, Dict, Literal
+from typing import Any, Dict, Literal
 
 import pytest
 
 from starlette.testclient import TestClient
-
-TestClientFactory = Callable[..., TestClient]
+from tests.test_types.types import TestClientFactory
 
 
 @pytest.fixture
