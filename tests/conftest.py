@@ -4,14 +4,14 @@ from typing import Any, Dict, Literal
 import pytest
 
 from starlette.testclient import TestClient
-from tests.types import TestClientFactory
+from tests.types import ClientFactoryProtocol
 
 
 @pytest.fixture
 def test_client_factory(
     anyio_backend_name: Literal["asyncio", "trio"],
     anyio_backend_options: Dict[str, Any],
-) -> TestClientFactory:
+) -> ClientFactoryProtocol:
     # anyio_backend_name defined by:
     # https://anyio.readthedocs.io/en/stable/testing.html#specifying-the-backends-to-run-on
     return functools.partial(

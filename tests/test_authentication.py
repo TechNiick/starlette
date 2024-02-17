@@ -20,7 +20,7 @@ from starlette.requests import HTTPConnection, Request
 from starlette.responses import JSONResponse, Response
 from starlette.routing import Route, WebSocketRoute
 from starlette.websockets import WebSocket, WebSocketDisconnect
-from tests.types import TestClientFactory
+from tests.types import ClientFactoryProtocol
 
 AsyncEndpoint = Callable[..., Awaitable[Response]]
 SyncEndpoint = Callable[..., Response]
@@ -212,7 +212,7 @@ def test_invalid_decorator_usage() -> None:
             pass  # pragma: nocover
 
 
-def test_user_interface(test_client_factory: TestClientFactory) -> None:
+def test_user_interface(test_client_factory: ClientFactoryProtocol) -> None:
     with test_client_factory(app) as client:
         response = client.get("/")
         assert response.status_code == 200
@@ -223,7 +223,7 @@ def test_user_interface(test_client_factory: TestClientFactory) -> None:
         assert response.json() == {"authenticated": True, "user": "tomchristie"}
 
 
-def test_authentication_required(test_client_factory: TestClientFactory) -> None:
+def test_authentication_required(test_client_factory: ClientFactoryProtocol) -> None:
     with test_client_factory(app) as client:
         response = client.get("/dashboard")
         assert response.status_code == 403
@@ -276,7 +276,7 @@ def test_authentication_required(test_client_factory: TestClientFactory) -> None
 
 
 def test_websocket_authentication_required(
-    test_client_factory: TestClientFactory,
+    test_client_factory: ClientFactoryProtocol,
 ) -> None:
     with test_client_factory(app) as client:
         with pytest.raises(WebSocketDisconnect):
@@ -316,7 +316,7 @@ def test_websocket_authentication_required(
             }
 
 
-def test_authentication_redirect(test_client_factory: TestClientFactory) -> None:
+def test_authentication_redirect(test_client_factory: ClientFactoryProtocol) -> None:
     with test_client_factory(app) as client:
         response = client.get("/admin")
         assert response.status_code == 200
@@ -365,7 +365,7 @@ other_app = Starlette(
 )
 
 
-def test_custom_on_error(test_client_factory: TestClientFactory) -> None:
+def test_custom_on_error(test_client_factory: ClientFactoryProtocol) -> None:
     with test_client_factory(other_app) as client:
         response = client.get("/control-panel", auth=("tomchristie", "example"))
         assert response.status_code == 200
