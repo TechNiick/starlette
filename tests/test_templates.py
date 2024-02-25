@@ -14,10 +14,10 @@ from starlette.requests import Request
 from starlette.responses import Response
 from starlette.routing import Route
 from starlette.templating import Jinja2Templates
-from tests.types import ClientFactoryProtocol
+from tests.types import TestClientFactory
 
 
-def test_templates(tmpdir: Path, test_client_factory: ClientFactoryProtocol) -> None:
+def test_templates(tmpdir: Path, test_client_factory: TestClientFactory) -> None:
     path = os.path.join(tmpdir, "index.html")
     with open(path, "w") as file:
         file.write("<html>Hello, <a href='{{ url_for('homepage') }}'>world</a></html>")
@@ -36,7 +36,7 @@ def test_templates(tmpdir: Path, test_client_factory: ClientFactoryProtocol) -> 
 
 
 def test_calls_context_processors(
-    tmp_path: Path, test_client_factory: ClientFactoryProtocol
+    tmp_path: Path, test_client_factory: TestClientFactory
 ) -> None:
     path = tmp_path / "index.html"
     path.write_text("<html>Hello {{ username }}</html>")
@@ -66,7 +66,7 @@ def test_calls_context_processors(
 
 
 def test_template_with_middleware(
-    tmpdir: Path, test_client_factory: ClientFactoryProtocol
+    tmpdir: Path, test_client_factory: TestClientFactory
 ) -> None:
     path = os.path.join(tmpdir, "index.html")
     with open(path, "w") as file:
@@ -96,7 +96,7 @@ def test_template_with_middleware(
 
 
 def test_templates_with_directories(
-    tmp_path: Path, test_client_factory: ClientFactoryProtocol
+    tmp_path: Path, test_client_factory: TestClientFactory
 ) -> None:
     dir_a = tmp_path.resolve() / "a"
     dir_a.mkdir()
@@ -150,7 +150,7 @@ def test_templates_with_directory(tmpdir: Path) -> None:
 
 
 def test_templates_with_environment(
-    tmpdir: Path, test_client_factory: ClientFactoryProtocol
+    tmpdir: Path, test_client_factory: TestClientFactory
 ) -> None:
     path = os.path.join(tmpdir, "index.html")
     with open(path, "w") as file:
@@ -178,7 +178,7 @@ def test_templates_with_environment_options_emit_warning(tmpdir: Path) -> None:
 
 
 def test_templates_with_kwargs_only(
-    tmpdir: Path, test_client_factory: ClientFactoryProtocol
+    tmpdir: Path, test_client_factory: TestClientFactory
 ) -> None:
     # MAINTAINERS: remove after 1.0
     path = os.path.join(tmpdir, "index.html")
@@ -223,7 +223,7 @@ def test_templates_with_kwargs_only_requires_request_in_context(tmpdir: Path) ->
 
 
 def test_templates_with_kwargs_only_warns_when_no_request_keyword(
-    tmpdir: Path, test_client_factory: ClientFactoryProtocol
+    tmpdir: Path, test_client_factory: TestClientFactory
 ) -> None:
     # MAINTAINERS: remove after 1.0
 
@@ -257,7 +257,7 @@ def test_templates_with_requires_request_in_context(tmpdir: Path) -> None:
 
 
 def test_templates_warns_when_first_argument_isnot_request(
-    tmpdir: Path, test_client_factory: ClientFactoryProtocol
+    tmpdir: Path, test_client_factory: TestClientFactory
 ) -> None:
     # MAINTAINERS: remove after 1.0
     path = os.path.join(tmpdir, "index.html")
@@ -290,7 +290,7 @@ def test_templates_warns_when_first_argument_isnot_request(
 
 
 def test_templates_when_first_argument_is_request(
-    tmpdir: Path, test_client_factory: ClientFactoryProtocol
+    tmpdir: Path, test_client_factory: TestClientFactory
 ) -> None:
     # MAINTAINERS: remove after 1.0
     path = os.path.join(tmpdir, "index.html")
