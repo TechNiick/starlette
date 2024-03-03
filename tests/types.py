@@ -1,4 +1,6 @@
-from typing import Dict, Optional, Protocol, Union
+from __future__ import annotations
+
+from typing import Protocol
 
 from httpx import Cookies, Headers
 
@@ -15,8 +17,8 @@ class TestClientFactory(Protocol):  # pragma: no cover
         base_url: str = "http://testserver",
         raise_server_exceptions: bool = True,
         root_path: str = "",
-        cookies: Optional[Union[Cookies, Dict[str, str]]] = None,
-        headers: Optional[Headers] = None,
+        cookies: Cookies | dict[str, str] | None = None,
+        headers: Headers | None = None,
         follow_redirects: bool = True,
     ) -> TestClient:
         ...

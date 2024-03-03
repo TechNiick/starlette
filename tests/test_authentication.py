@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import base64
 import binascii
-from typing import Any, Awaitable, Callable, Optional, Tuple
+from typing import Any, Awaitable, Callable
 from urllib.parse import urlencode
 
 import pytest
@@ -30,7 +32,7 @@ class BasicAuth(AuthenticationBackend):
     async def authenticate(
         self,
         request: HTTPConnection,
-    ) -> Optional[Tuple[AuthCredentials, SimpleUser]]:
+    ) -> tuple[AuthCredentials, SimpleUser] | None:
         if "Authorization" not in request.headers:
             return None
 

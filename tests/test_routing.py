@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import contextlib
 import functools
 import json
@@ -761,7 +763,7 @@ def test_lifespan_state_unsupported(
     @contextlib.asynccontextmanager
     async def lifespan(
         app: ASGIApp,
-    ) -> typing.AsyncGenerator[typing.Dict[str, str], None]:
+    ) -> typing.AsyncGenerator[dict[str, str], None]:
         yield {"foo": "bar"}
 
     app = Router(
@@ -786,7 +788,7 @@ def test_lifespan_state_async_cm(test_client_factory: TestClientFactory) -> None
 
     class State(typing.TypedDict):
         count: int
-        items: typing.List[int]
+        items: list[int]
 
     async def hello_world(request: Request) -> Response:
         # modifications to the state should not leak across requests
